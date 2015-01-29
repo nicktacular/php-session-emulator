@@ -2,7 +2,7 @@
 
 use Mockery\Mock;
 
-class SessionEmulatorTest extends PHPUnit_Framework_TestCase
+class n1_Session_EmulatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -16,7 +16,7 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
             return;
         }
 
-        $emulator = new SessionEmulator();
+        $emulator = new n1_Session_Emulator();
         $handler = new FakeSessionHandler();
         $emulator->setSaveHandler($handler);
         $emulator->sessionStart();
@@ -29,12 +29,12 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
     {
         $name = 'mySession123';
 
-        $emulator = new SessionEmulator($name);
+        $emulator = new n1_Session_Emulator($name);
         $handler = Mockery::mock('FakeHandler');
 
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -57,18 +57,18 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
     {
         $name = 'mySession123';
         $id = 'lolid';
-        $cookie = HttpCookie::create(array(
+        $cookie = n1_Session_HttpCookie::create(array(
             'name' => $name,
             'value' => $id
         ));
         $raw = '';
 
-        $emulator = new SessionEmulator($name, array(), $cookie, true);
+        $emulator = new n1_Session_Emulator($name, array(), $cookie, true);
 
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -103,7 +103,7 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $id = 123456;
         $raw = serialize(array('hello' => 'world'));
 
-        $emulator = new SessionEmulator($name, array(), $id);
+        $emulator = new n1_Session_Emulator($name, array(), $id);
 
         //since we passed in a session id, session "exists"
         $this->assertTrue($emulator->sessionExists());
@@ -111,7 +111,7 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -145,17 +145,17 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $data = array('hello' => 'world');
         $id = sha1(rand());
 
-        $fromBrowser = HttpCookie::create(array(
+        $fromBrowser = n1_Session_HttpCookie::create(array(
             'name' => $name,
             'value' => $id
         ));
 
-        $emulator = new SessionEmulator($name, $data, $fromBrowser, false);
+        $emulator = new n1_Session_Emulator($name, $data, $fromBrowser, false);
 
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -190,17 +190,17 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $data = array('hello' => 'world', 'yes' => array(1, 2, 3));
         $id = sha1(rand());
 
-        $fromBrowser = HttpCookie::create(array(
+        $fromBrowser = n1_Session_HttpCookie::create(array(
             'name' => $name,
             'value' => $id
         ));
 
-        $emulator = new SessionEmulator($name, $data, $fromBrowser, false);
+        $emulator = new n1_Session_Emulator($name, $data, $fromBrowser, false);
 
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -243,17 +243,17 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $data = array('hello' => 'world', 'yes' => array(1, 2, 3));
         $id = sha1(rand());
 
-        $fromBrowser = HttpCookie::create(array(
+        $fromBrowser = n1_Session_HttpCookie::create(array(
             'name' => $name,
             'value' => $id
         ));
 
-        $emulator = new SessionEmulator($name, $data, $fromBrowser, false);
+        $emulator = new n1_Session_Emulator($name, $data, $fromBrowser, false);
 
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler
@@ -300,17 +300,17 @@ class SessionEmulatorTest extends PHPUnit_Framework_TestCase
         $data = array('hello' => time());
         $id = sha1(rand());
 
-        $fromBrowser = HttpCookie::create(array(
+        $fromBrowser = n1_Session_HttpCookie::create(array(
             'name' => $name,
             'value' => $id
         ));
 
-        $emulator = new SessionEmulator($name, $data, $fromBrowser, false);
+        $emulator = new n1_Session_Emulator($name, $data, $fromBrowser, false);
 
         $handler = Mockery::mock('FakeHandler');
         $handler
             ->shouldReceive('open')
-            ->withArgs(array(SessionEmulator::DEFAULT_SAVE_PATH, $name))
+            ->withArgs(array(n1_Session_Emulator::DEFAULT_SAVE_PATH, $name))
             ->once()
             ->andReturn();
         $handler

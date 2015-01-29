@@ -1,6 +1,6 @@
 <?php
 
-class SessionEmulator
+class n1_Session_Emulator
 {
     const DEFAULT_SAVE_PATH = '';
 
@@ -43,12 +43,12 @@ class SessionEmulator
     protected $saveHandler;
 
     /**
-     * @var HttpCookie
+     * @var n1_Session_HttpCookie
      */
     protected $browserCookie;
 
     /**
-     * @var HttpCookie
+     * @var n1_Session_HttpCookie
      */
     protected $cookieToSend;
 
@@ -72,7 +72,7 @@ class SessionEmulator
     /**
      * @param string $name The name (defaults to PHPSESSID).
      * @param array $data The data (defaults to empty array).
-     * @param HttpCookie|string $browserCookie Either a cookie OR the session id as a string.
+     * @param n1_Session_HttpCookie|string $browserCookie Either a cookie OR the session id as a string.
      * @param bool $isNewSession Whether new or not (defaults to true).
      */
     public function __construct(
@@ -87,7 +87,7 @@ class SessionEmulator
         $this->isNew = $isNewSession;
 
         // restore session id if passed back from browser
-        if ($browserCookie instanceof HttpCookie && $browserCookie->getName() == $name) {
+        if ($browserCookie instanceof n1_Session_HttpCookie && $browserCookie->getName() == $name) {
             $this->currId = $browserCookie->getValue();
         } elseif ($browserCookie !== null) {
             $this->currId = $browserCookie;
@@ -148,7 +148,7 @@ class SessionEmulator
         $id = $this->getId();
 
         if ($needCookie) {
-            $this->cookieToSend = HttpCookie::create(array(
+            $this->cookieToSend = n1_Session_HttpCookie::create(array(
                 'name' => $this->name,
                 'value' => $id
             ));
@@ -198,7 +198,7 @@ class SessionEmulator
         $this->currId = null;
         $this->getId();
         $this->isNew = true;
-        $this->cookieToSend = HttpCookie::create(array(
+        $this->cookieToSend = n1_Session_HttpCookie::create(array(
             'name' => $this->name,
             'value' => $this->getId()
         ));
@@ -267,7 +267,7 @@ class SessionEmulator
         if ($setTo) {
             $this->currId = $setTo;
 
-            $this->cookieToSend = HttpCookie::create(array(
+            $this->cookieToSend = n1_Session_HttpCookie::create(array(
                 'name' => $this->name,
                 'value' => $this->currId
             ));
@@ -319,182 +319,5 @@ class SessionEmulator
             throw new OutOfBoundsException('No such key: ' . $key);
         }
         return $this->data[$key];
-    }
-}
-
-
-class HttpCookie
-{
-    protected $name;
-    protected $value;
-    protected $expire;
-    protected $path;
-    protected $domain;
-    protected $secure;
-    protected $httpOnly;
-
-    public static function create(array $c = array())
-    {
-        if (!isset($c['name'])) {
-            throw new InvalidArgumentException('A cookie needs a name.');
-        }
-
-        if (!isset($c['value'])) {
-            $c['value'] = false;
-        }
-
-        if (!isset($c['expire'])) {
-            //0 is for session expiry, per setcookie(...)
-            $c['expire'] = 0;
-        }
-
-        if (!isset($c['path'])) {
-            $c['path'] = '/';
-        }
-
-        if (!isset($c['domain'])) {
-            $c['domain'] = '';
-        }
-
-        if (!isset($c['secure'])) {
-            $c['secure'] = false;
-        }
-
-        if (!isset($c['http_only'])) {
-            $c['http_only'] = false;
-        }
-
-        return new self(
-            $c['name'],
-            $c['value'],
-            $c['expire'],
-            $c['path'],
-            $c['domain'],
-            $c['secure'],
-            $c['http_only']
-        );
-    }
-
-    public function __construct($name, $value, $expire, $path, $domain, $secure, $httpOnly)
-    {
-        $this->name = $name;
-        $this->value = $value;
-        $this->expire = $expire;
-        $this->path = $path;
-        $this->domain = $domain;
-        $this->secure = $secure;
-        $this->httpOnly = $httpOnly;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getExpire()
-    {
-        return $this->expire;
-    }
-
-    /**
-     * @param mixed $expire
-     */
-    public function setExpire($expire)
-    {
-        $this->expire = $expire;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDomain()
-    {
-        return $this->domain;
-    }
-
-    /**
-     * @param mixed $domain
-     */
-    public function setDomain($domain)
-    {
-        $this->domain = $domain;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSecure()
-    {
-        return $this->secure;
-    }
-
-    /**
-     * @param mixed $secure
-     */
-    public function setSecure($secure)
-    {
-        $this->secure = $secure;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHttpOnly()
-    {
-        return $this->httpOnly;
-    }
-
-    /**
-     * @param mixed $httpOnly
-     */
-    public function setHttpOnly($httpOnly)
-    {
-        $this->httpOnly = $httpOnly;
     }
 }
