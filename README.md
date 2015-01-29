@@ -17,7 +17,8 @@ composer require nicktacular/php-session-emulator --dev
 If you're using PHP < 5.3, you can simple clone this repo and include in in your test bootstrap:
 
 ```php
-include 'wherever/you/install/this/SessionEmulator.php';
+include 'src/n1/Session/Emulator.php';
+include 'src/n1/Session/HttpCookie.php';
 ```
 
 Now 
