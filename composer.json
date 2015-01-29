@@ -1,0 +1,25 @@
+{
+  "name": "nicktacular/php-session-tester",
+  "type": "library",
+  "description": "A little testing tool for PHP session handlers",
+  "keywords": ["php", "session", "testing", "unit test", "TDD"],
+  "homepage": "https://github.com/nicktacular/php-session-tester",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nick Ilyin",
+      "email": "nick.ilyin@gmail.com",
+      "homepage": "https://nickily.in",
+      "role": "Developer"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "4.4.0",
+    "mockery/mockery": "0.9.*"
+  },
+  "autoload": {
+    "classmap": [
+      "SessionEmulator.php"
+    ]
+  }
+}
