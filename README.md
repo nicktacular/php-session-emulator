@@ -4,21 +4,23 @@ This is a little tool that you can use to emulate how PHP uses a session handler
 
 ## Requirements
 
-If you're on PHP >= 5.3, then just Composer. If you're running PHP < 5.3, there are no other requirements.
+If you're on PHP ≥ 5.3, then just Composer. If you're running PHP < 5.3, there are no other requirements.
 
-## How to use this?
+## Installing
 
-If you're using PHP >= 5.3, you can install using composer, you can install quite simply like so:
+If you're using PHP ≥ 5.3, you can install using composer, you can install quite simply like so:
 
 ```
 composer require nicktacular/php-session-emulator --dev
 ```
 
-If you're using PHP < 5.3, you can simple clone this repo and include in in your test bootstrap:
+If you're using PHP < 5.3, you can simple clone this repo and include these in your test bootstrap:
 
 ```php
-include 'src/n1/Session/Emulator.php';
-include 'src/n1/Session/HttpCookie.php';
+include '/path/to/src/n1/Session/Emulator.php';
+include '/path/to/src/n1/Session/HttpCookie.php';
 ```
 
-Now 
+## How to use
+
+Docs will be done soon.
